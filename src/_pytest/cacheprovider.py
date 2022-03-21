@@ -63,7 +63,7 @@ class Cache:
         )
 
     def makedir(self, name):
-        """ return a directory path object with the given name.  If the
+        """return a directory path object with the given name.  If the
         directory does not yet exist, it will be created.  You can use it
         to manage files likes e. g. store/retrieve database
         dumps across test sessions.
@@ -83,7 +83,7 @@ class Cache:
         return self._cachedir.joinpath("v", Path(key))
 
     def get(self, key, default):
-        """ return cached value for the given key.  If no value
+        """return cached value for the given key.  If no value
         was yet cached or the value cannot be read, the specified
         default is returned.
 
@@ -97,11 +97,11 @@ class Cache:
         try:
             with path.open("r") as f:
                 return json.load(f)
-        except (ValueError, IOError, OSError):
+        except (ValueError, OSError):
             return default
 
     def set(self, key, value):
-        """ save value for the given key.
+        """save value for the given key.
 
         :param key: must be a ``/`` separated value. Usually the first
              name is the name of your plugin or your application.
@@ -116,14 +116,14 @@ class Cache:
             else:
                 cache_dir_exists_already = self._cachedir.exists()
                 path.parent.mkdir(exist_ok=True, parents=True)
-        except (IOError, OSError):
+        except OSError:
             self.warn("could not create cache path {path}", path=path)
             return
         if not cache_dir_exists_already:
             self._ensure_supporting_files()
         try:
             f = path.open("w")
-        except (IOError, OSError):
+        except OSError:
             self.warn("cache could not write path {path}", path=path)
         else:
             with f:
@@ -143,7 +143,7 @@ class Cache:
 
 
 class LFPlugin:
-    """ Plugin which implements the --lf (run last-failing) option """
+    """Plugin which implements the --lf (run last-failing) option"""
 
     def __init__(self, config):
         self.config = config
@@ -155,8 +155,7 @@ class LFPlugin:
         self._skipped_files = 0  # count skipped files during collection due to --lf
 
     def last_failed_paths(self):
-        """Returns a set with all Paths()s of the previously failed nodeids (cached).
-        """
+        """Returns a set with all Paths()s of the previously failed nodeids (cached)."""
         try:
             return self._last_failed_paths
         except AttributeError:
@@ -256,7 +255,7 @@ class LFPlugin:
 
 
 class NFPlugin:
-    """ Plugin which implements the --nf (run new-first) option """
+    """Plugin which implements the --nf (run new-first) option"""
 
     def __init__(self, config):
         self.config = config

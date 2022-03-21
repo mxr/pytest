@@ -861,7 +861,7 @@ def test_makereport_getsource_dynamic_code(testdir, monkeypatch):
 
 
 def test_store_except_info_on_error():
-    """ Test that upon test failure, the exception info is stored on
+    """Test that upon test failure, the exception info is stored on
     sys.last_traceback and friends.
     """
     # Simulate item that might raise a specific exception, depending on `raise_error` class var

@@ -423,7 +423,7 @@ class TestAssert_reprcompare:
             assert "b" not in line
 
     def test_dict_omitting_with_verbosity_1(self):
-        """ Ensure differing items are visible for verbosity=1 (#1512) """
+        """Ensure differing items are visible for verbosity=1 (#1512)"""
         lines = callequal({"a": 0, "b": 1}, {"a": 1, "b": 1}, verbose=1)
         assert lines[1].startswith("Omitting 1 identical item")
         assert lines[2].startswith("Differing items")
@@ -806,7 +806,7 @@ class TestFormatExplanation:
 
 class TestTruncateExplanation:
 
-    """ Confirm assertion output is truncated as expected """
+    """Confirm assertion output is truncated as expected"""
 
     # The number of lines in the truncation explanation message. Used
     # to calculate that results have the expected length.
@@ -873,7 +873,7 @@ class TestTruncateExplanation:
         assert last_line_before_trunc_msg.endswith("...")
 
     def test_full_output_truncated(self, monkeypatch, testdir):
-        """ Test against full runpytest() output. """
+        """Test against full runpytest() output."""
 
         line_count = 7
         line_len = 100

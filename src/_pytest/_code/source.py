@@ -12,8 +12,8 @@ import py
 
 
 class Source:
-    """ an immutable object holding a source code fragment,
-        possibly deindenting it.
+    """an immutable object holding a source code fragment,
+    possibly deindenting it.
     """
 
     _compilecounter = 0
@@ -61,8 +61,8 @@ class Source:
         return len(self.lines)
 
     def strip(self):
-        """ return new source object with trailing
-            and leading blank lines removed.
+        """return new source object with trailing
+        and leading blank lines removed.
         """
         start, end = 0, len(self)
         while start < end and not self.lines[start].strip():
@@ -74,8 +74,8 @@ class Source:
         return source
 
     def putaround(self, before="", after="", indent=" " * 4):
-        """ return a copy of the source object with
-            'before' and 'after' wrapped around it.
+        """return a copy of the source object with
+        'before' and 'after' wrapped around it.
         """
         before = Source(before)
         after = Source(after)
@@ -85,23 +85,23 @@ class Source:
         return newsource
 
     def indent(self, indent=" " * 4):
-        """ return a copy of the source object with
-            all lines indented by the given indent-string.
+        """return a copy of the source object with
+        all lines indented by the given indent-string.
         """
         newsource = Source()
         newsource.lines = [(indent + line) for line in self.lines]
         return newsource
 
     def getstatement(self, lineno):
-        """ return Source statement which contains the
-            given linenumber (counted from 0).
+        """return Source statement which contains the
+        given linenumber (counted from 0).
         """
         start, end = self.getstatementrange(lineno)
         return self[start:end]
 
     def getstatementrange(self, lineno):
-        """ return (start, end) tuple which spans the minimal
-            statement region which containing the given lineno.
+        """return (start, end) tuple which spans the minimal
+        statement region which containing the given lineno.
         """
         if not (0 <= lineno < len(self)):
             raise IndexError("lineno out of range")
@@ -115,8 +115,8 @@ class Source:
         return newsource
 
     def isparseable(self, deindent=True):
-        """ return True if source is parseable, heuristically
-            deindenting it by default.
+        """return True if source is parseable, heuristically
+        deindenting it by default.
         """
         from parser import suite as syntax_checker
 
@@ -140,9 +140,9 @@ class Source:
     def compile(
         self, filename=None, mode="exec", flag=0, dont_inherit=0, _genframe=None
     ):
-        """ return compiled code object. if filename is None
-            invent an artificial filename which displays
-            the source/line position of the caller frame.
+        """return compiled code object. if filename is None
+        invent an artificial filename which displays
+        the source/line position of the caller frame.
         """
         if not filename or py.path.local(filename).check(file=0):
             if _genframe is None:
@@ -183,10 +183,10 @@ class Source:
 
 
 def compile_(source, filename=None, mode="exec", flags=0, dont_inherit=0):
-    """ compile the given source to a raw code object,
-        and maintain an internal cache which allows later
-        retrieval of the source code for the code object
-        and any recursively created code objects.
+    """compile the given source to a raw code object,
+    and maintain an internal cache which allows later
+    retrieval of the source code for the code object
+    and any recursively created code objects.
     """
     if isinstance(source, ast.AST):
         # XXX should Source support having AST?
@@ -198,7 +198,7 @@ def compile_(source, filename=None, mode="exec", flags=0, dont_inherit=0):
 
 
 def getfslineno(obj):
-    """ Return source location (path, lineno) for the given object.
+    """Return source location (path, lineno) for the given object.
     If the source cannot be determined return ("", -1).
 
     The line number is 0-based.
@@ -218,7 +218,7 @@ def getfslineno(obj):
         if fspath:
             try:
                 _, lineno = findsource(obj)
-            except IOError:
+            except OSError:
                 pass
     else:
         fspath = code.path

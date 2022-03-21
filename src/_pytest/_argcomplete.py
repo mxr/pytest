@@ -97,7 +97,6 @@ if os.environ.get("_ARGCOMPLETE"):
     def try_argcomplete(parser):
         argcomplete.autocomplete(parser, always_complete_options=False)
 
-
 else:
 
     def try_argcomplete(parser):

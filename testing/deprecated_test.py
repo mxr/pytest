@@ -140,7 +140,7 @@ def test_pytest_plugins_in_non_top_level_conftest_unsupported_pyargs(
 
 
 def test_pytest_plugins_in_non_top_level_conftest_unsupported_no_top_level_conftest(
-    testdir
+    testdir,
 ):
     from _pytest.deprecated import PYTEST_PLUGINS_FROM_NON_TOP_LEVEL_CONFTEST
 
@@ -169,7 +169,7 @@ def test_pytest_plugins_in_non_top_level_conftest_unsupported_no_top_level_conft
 
 
 def test_pytest_plugins_in_non_top_level_conftest_unsupported_no_false_positives(
-    testdir
+    testdir,
 ):
     from _pytest.deprecated import PYTEST_PLUGINS_FROM_NON_TOP_LEVEL_CONFTEST
 

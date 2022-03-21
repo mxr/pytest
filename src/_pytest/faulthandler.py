@@ -69,8 +69,7 @@ def pytest_runtest_protocol(item):
 
 @pytest.hookimpl(tryfirst=True)
 def pytest_enter_pdb():
-    """Cancel any traceback dumping due to timeout before entering pdb.
-    """
+    """Cancel any traceback dumping due to timeout before entering pdb."""
     import faulthandler
 
     faulthandler.cancel_dump_traceback_later()

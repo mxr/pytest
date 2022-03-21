@@ -200,7 +200,7 @@ class TestAssertionRewrite:
 
     def test_dont_rewrite_if_hasattr_fails(self, request):
         class Y:
-            """ A class whos getattr fails, but not with `AttributeError` """
+            """A class whos getattr fails, but not with `AttributeError`"""
 
             def __getattr__(self, attribute_name):
                 raise KeyError()
@@ -1077,8 +1077,7 @@ class TestAssertionRewriteHookDetails:
         result.stdout.fnmatch_lines(["* 1 passed*"])
 
     def test_get_data_support(self, testdir):
-        """Implement optional PEP302 api (#808).
-        """
+        """Implement optional PEP302 api (#808)."""
         path = testdir.mkpydir("foo")
         path.join("test_foo.py").write(
             textwrap.dedent(
@@ -1168,7 +1167,7 @@ class TestIssue2121:
 
 
 @pytest.mark.skipif(
-    sys.maxsize <= (2 ** 31 - 1), reason="Causes OverflowError on 32bit systems"
+    sys.maxsize <= (2**31 - 1), reason="Causes OverflowError on 32bit systems"
 )
 @pytest.mark.parametrize("offset", [-1, +1])
 def test_source_mtime_long_long(testdir, offset):
@@ -1187,7 +1186,7 @@ def test_source_mtime_long_long(testdir, offset):
     # use unsigned long timestamp which overflows signed long,
     # which was the cause of the bug
     # +1 offset also tests masking of 0xFFFFFFFF
-    timestamp = 2 ** 32 + offset
+    timestamp = 2**32 + offset
     os.utime(str(p), (timestamp, timestamp))
     result = testdir.runpytest()
     assert result.ret == 0

@@ -1,5 +1,5 @@
 class UsageError(Exception):
-    """ error in pytest usage or invocation"""
+    """error in pytest usage or invocation"""
 
 
 class PrintHelp(Exception):

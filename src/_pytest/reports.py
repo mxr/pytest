@@ -275,7 +275,7 @@ def _report_unserialization_failure(type_name, report_class, reportdict):
 
 
 class TestReport(BaseReport):
-    """ Basic test report object (also used for setup and teardown calls if
+    """Basic test report object (also used for setup and teardown calls if
     they fail).
     """
 

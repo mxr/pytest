@@ -398,8 +398,7 @@ def pytest_configure(config):
 
 
 class LoggingPlugin:
-    """Attaches to the logging module and captures log messages for each test.
-    """
+    """Attaches to the logging module and captures log messages for each test."""
 
     def __init__(self, config):
         """Creates a new plugin to capture log messages.

@@ -25,7 +25,7 @@ def pytest_addhooks(pluginmanager):
 
 @hookspec(historic=True)
 def pytest_plugin_registered(plugin, manager):
-    """ a new pytest plugin got registered.
+    """a new pytest plugin got registered.
 
     :param plugin: the plugin module or instance
     :param _pytest.config.PytestPluginManager manager: pytest plugin manager
@@ -123,7 +123,7 @@ def pytest_cmdline_preparse(config, args):
 
 @hookspec(firstresult=True)
 def pytest_cmdline_main(config):
-    """ called for performing the main command line action. The default
+    """called for performing the main command line action. The default
     implementation will invoke the configure hooks and runtest_mainloop.
 
     .. note::
@@ -136,7 +136,7 @@ def pytest_cmdline_main(config):
 
 
 def pytest_load_initial_conftests(early_config, parser, args):
-    """ implements the loading of initial conftest files ahead
+    """implements the loading of initial conftest files ahead
     of command line option parsing.
 
     .. note::
@@ -164,7 +164,7 @@ def pytest_collection(session):
 
 
 def pytest_collection_modifyitems(session, config, items):
-    """ called after collection has been performed, may filter or re-order
+    """called after collection has been performed, may filter or re-order
     the items in-place.
 
     :param _pytest.main.Session session: the pytest session object
@@ -174,7 +174,7 @@ def pytest_collection_modifyitems(session, config, items):
 
 
 def pytest_collection_finish(session):
-    """ called after collection has been performed and modified.
+    """called after collection has been performed and modified.
 
     :param _pytest.main.Session session: the pytest session object
     """
@@ -182,7 +182,7 @@ def pytest_collection_finish(session):
 
 @hookspec(firstresult=True)
 def pytest_ignore_collect(path, config):
-    """ return True to prevent considering this path for collection.
+    """return True to prevent considering this path for collection.
     This hook is consulted for all files and directories prior to calling
     more specific hooks.
 
@@ -195,7 +195,7 @@ def pytest_ignore_collect(path, config):
 
 @hookspec(firstresult=True)
 def pytest_collect_directory(path, parent):
-    """ called before traversing a directory for collection files.
+    """called before traversing a directory for collection files.
 
     Stops at first non-None result, see :ref:`firstresult`
 
@@ -204,7 +204,7 @@ def pytest_collect_directory(path, parent):
 
 
 def pytest_collect_file(path, parent):
-    """ return collection Node or None for the given path. Any new node
+    """return collection Node or None for the given path. Any new node
     needs to have the specified ``parent`` as a parent.
 
     :param path: a :py:class:`py.path.local` - the path to collect
@@ -215,26 +215,26 @@ def pytest_collect_file(path, parent):
 
 
 def pytest_collectstart(collector):
-    """ collector starts collecting. """
+    """collector starts collecting."""
 
 
 def pytest_itemcollected(item):
-    """ we just collected a test item. """
+    """we just collected a test item."""
 
 
 def pytest_collectreport(report):
-    """ collector finished collecting. """
+    """collector finished collecting."""
 
 
 def pytest_deselected(items):
-    """ called for test items deselected, e.g. by keyword. """
+    """called for test items deselected, e.g. by keyword."""
 
 
 @hookspec(firstresult=True)
 def pytest_make_collect_report(collector):
-    """ perform ``collector.collect()`` and return a CollectReport.
+    """perform ``collector.collect()`` and return a CollectReport.
 
-    Stops at first non-None result, see :ref:`firstresult` """
+    Stops at first non-None result, see :ref:`firstresult`"""
 
 
 # -------------------------------------------------------------------------
@@ -244,7 +244,7 @@ def pytest_make_collect_report(collector):
 
 @hookspec(firstresult=True)
 def pytest_pycollect_makemodule(path, parent):
-    """ return a Module collector or None for the given path.
+    """return a Module collector or None for the given path.
     This hook will be called for each matching test module path.
     The pytest_collect_file hook needs to be used if you want to
     create test modules for files that do not match as a test module.
@@ -257,20 +257,20 @@ def pytest_pycollect_makemodule(path, parent):
 
 @hookspec(firstresult=True)
 def pytest_pycollect_makeitem(collector, name, obj):
-    """ return custom item/collector for a python object in a module, or None.
+    """return custom item/collector for a python object in a module, or None.
 
-    Stops at first non-None result, see :ref:`firstresult` """
+    Stops at first non-None result, see :ref:`firstresult`"""
 
 
 @hookspec(firstresult=True)
 def pytest_pyfunc_call(pyfuncitem):
-    """ call underlying test function.
+    """call underlying test function.
 
-    Stops at first non-None result, see :ref:`firstresult` """
+    Stops at first non-None result, see :ref:`firstresult`"""
 
 
 def pytest_generate_tests(metafunc):
-    """ generate (multiple) parametrized calls to a test function."""
+    """generate (multiple) parametrized calls to a test function."""
 
 
 @hookspec(firstresult=True)
@@ -294,7 +294,7 @@ def pytest_make_parametrize_id(config, val, argname):
 
 @hookspec(firstresult=True)
 def pytest_runtestloop(session):
-    """ called for performing the main runtest loop
+    """called for performing the main runtest loop
     (after collection finished).
 
     Stops at first non-None result, see :ref:`firstresult`
@@ -304,12 +304,12 @@ def pytest_runtestloop(session):
 
 
 def pytest_itemstart(item, node):
-    """(**Deprecated**) use pytest_runtest_logstart. """
+    """(**Deprecated**) use pytest_runtest_logstart."""
 
 
 @hookspec(firstresult=True)
 def pytest_runtest_protocol(item, nextitem):
-    """ implements the runtest_setup/call/teardown protocol for
+    """implements the runtest_setup/call/teardown protocol for
     the given test item, including capturing exceptions and calling
     reporting hooks.
 
@@ -322,11 +322,11 @@ def pytest_runtest_protocol(item, nextitem):
     :return boolean: True if no further hook implementations should be invoked.
 
 
-    Stops at first non-None result, see :ref:`firstresult` """
+    Stops at first non-None result, see :ref:`firstresult`"""
 
 
 def pytest_runtest_logstart(nodeid, location):
-    """ signal the start of running a single test item.
+    """signal the start of running a single test item.
 
     This hook will be called **before** :func:`pytest_runtest_setup`, :func:`pytest_runtest_call` and
     :func:`pytest_runtest_teardown` hooks.
@@ -337,7 +337,7 @@ def pytest_runtest_logstart(nodeid, location):
 
 
 def pytest_runtest_logfinish(nodeid, location):
-    """ signal the complete finish of running a single test item.
+    """signal the complete finish of running a single test item.
 
     This hook will be called **after** :func:`pytest_runtest_setup`, :func:`pytest_runtest_call` and
     :func:`pytest_runtest_teardown` hooks.
@@ -348,15 +348,15 @@ def pytest_runtest_logfinish(nodeid, location):
 
 
 def pytest_runtest_setup(item):
-    """ called before ``pytest_runtest_call(item)``. """
+    """called before ``pytest_runtest_call(item)``."""
 
 
 def pytest_runtest_call(item):
-    """ called to execute the test ``item``. """
+    """called to execute the test ``item``."""
 
 
 def pytest_runtest_teardown(item, nextitem):
-    """ called after ``pytest_runtest_call``.
+    """called after ``pytest_runtest_call``.
 
     :arg nextitem: the scheduled-to-be-next test item (None if no further
                    test item is scheduled).  This argument can be used to
@@ -367,16 +367,16 @@ def pytest_runtest_teardown(item, nextitem):
 
 @hookspec(firstresult=True)
 def pytest_runtest_makereport(item, call):
-    """ return a :py:class:`_pytest.runner.TestReport` object
+    """return a :py:class:`_pytest.runner.TestReport` object
     for the given :py:class:`pytest.Item <_pytest.main.Item>` and
     :py:class:`_pytest.runner.CallInfo`.
 
-    Stops at first non-None result, see :ref:`firstresult` """
+    Stops at first non-None result, see :ref:`firstresult`"""
 
 
 def pytest_runtest_logreport(report):
-    """ process a test setup/call/teardown report relating to
-    the respective phase of executing a test. """
+    """process a test setup/call/teardown report relating to
+    the respective phase of executing a test."""
 
 
 @hookspec(firstresult=True)
@@ -421,7 +421,7 @@ def pytest_report_from_serializable(config, data):
 
 @hookspec(firstresult=True)
 def pytest_fixture_setup(fixturedef, request):
-    """ performs fixture setup execution.
+    """performs fixture setup execution.
 
     :return: The return value of the call to the fixture function
 
@@ -435,7 +435,7 @@ def pytest_fixture_setup(fixturedef, request):
 
 
 def pytest_fixture_post_finalizer(fixturedef, request):
-    """ called after fixture teardown, but before the cache is cleared so
+    """called after fixture teardown, but before the cache is cleared so
     the fixture result cache ``fixturedef.cached_result`` can
     still be accessed."""
 
@@ -446,7 +446,7 @@ def pytest_fixture_post_finalizer(fixturedef, request):
 
 
 def pytest_sessionstart(session):
-    """ called after the ``Session`` object has been created and before performing collection
+    """called after the ``Session`` object has been created and before performing collection
     and entering the run test loop.
 
     :param _pytest.main.Session session: the pytest session object
@@ -454,7 +454,7 @@ def pytest_sessionstart(session):
 
 
 def pytest_sessionfinish(session, exitstatus):
-    """ called after whole test run finished, right before returning the exit status to the system.
+    """called after whole test run finished, right before returning the exit status to the system.
 
     :param _pytest.main.Session session: the pytest session object
     :param int exitstatus: the status which pytest will return to the system
@@ -462,7 +462,7 @@ def pytest_sessionfinish(session, exitstatus):
 
 
 def pytest_unconfigure(config):
-    """ called before test process is exited.
+    """called before test process is exited.
 
     :param _pytest.config.Config config: pytest config object
     """
@@ -527,7 +527,7 @@ def pytest_assertion_pass(item, lineno, orig, expl):
 
 
 def pytest_report_header(config, startdir):
-    """ return a string or list of strings to be displayed as header info for terminal reporting.
+    """return a string or list of strings to be displayed as header info for terminal reporting.
 
     :param _pytest.config.Config config: pytest config object
     :param startdir: py.path object with the starting dir
@@ -556,11 +556,11 @@ def pytest_report_collectionfinish(config, startdir, items):
 
 @hookspec(firstresult=True)
 def pytest_report_teststatus(report, config):
-    """ return result-category, shortletter and verbose word for reporting.
+    """return result-category, shortletter and verbose word for reporting.
 
     :param _pytest.config.Config config: pytest config object
 
-    Stops at first non-None result, see :ref:`firstresult` """
+    Stops at first non-None result, see :ref:`firstresult`"""
 
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
@@ -627,9 +627,9 @@ def pytest_warning_captured(warning_message, when, item):
 
 @hookspec(firstresult=True)
 def pytest_doctest_prepare_content(content):
-    """ return processed content for a given doctest
+    """return processed content for a given doctest
 
-    Stops at first non-None result, see :ref:`firstresult` """
+    Stops at first non-None result, see :ref:`firstresult`"""
 
 
 # -------------------------------------------------------------------------
@@ -638,11 +638,11 @@ def pytest_doctest_prepare_content(content):
 
 
 def pytest_internalerror(excrepr, excinfo):
-    """ called for internal errors. """
+    """called for internal errors."""
 
 
 def pytest_keyboard_interrupt(excinfo):
-    """ called for keyboard interrupt. """
+    """called for keyboard interrupt."""
 
 
 def pytest_exception_interact(node, call, report):
@@ -655,7 +655,7 @@ def pytest_exception_interact(node, call, report):
 
 
 def pytest_enter_pdb(config, pdb):
-    """ called upon pdb.set_trace(), can be used by plugins to take special
+    """called upon pdb.set_trace(), can be used by plugins to take special
     action just before the python debugger enters in interactive mode.
 
     :param _pytest.config.Config config: pytest config object
@@ -664,7 +664,7 @@ def pytest_enter_pdb(config, pdb):
 
 
 def pytest_leave_pdb(config, pdb):
-    """ called when leaving pdb (e.g. with continue after pdb.set_trace()).
+    """called when leaving pdb (e.g. with continue after pdb.set_trace()).
 
     Can be used by plugins to take special action just after the python
     debugger leaves interactive mode.

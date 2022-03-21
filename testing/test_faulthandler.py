@@ -35,8 +35,7 @@ def test_crash_near_exit(testdir):
 
 
 def test_disabled(testdir):
-    """Test option to disable fault handler in the command line.
-    """
+    """Test option to disable fault handler in the command line."""
     testdir.makepyfile(
         """
     import faulthandler

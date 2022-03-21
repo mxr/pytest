@@ -54,7 +54,7 @@ class TempPathFactory:
         return p
 
     def getbasetemp(self):
-        """ return base temporary directory. """
+        """return base temporary directory."""
         if self._basetemp is not None:
             return self._basetemp
 
@@ -89,11 +89,11 @@ class TempdirFactory:
     _tmppath_factory = attr.ib()
 
     def ensuretemp(self, string, dir=1):
-        """ (deprecated) return temporary directory path with
-            the given string as the trailing part.  It is usually
-            better to use the 'tmpdir' function argument which
-            provides an empty unique-per-test-invocation directory
-            and is guaranteed to be empty.
+        """(deprecated) return temporary directory path with
+        the given string as the trailing part.  It is usually
+        better to use the 'tmpdir' function argument which
+        provides an empty unique-per-test-invocation directory
+        and is guaranteed to be empty.
         """
         # py.log._apiwarn(">1.1", "use tmpdir function argument")
         from .deprecated import PYTEST_ENSURETEMP
@@ -143,15 +143,13 @@ def pytest_configure(config):
 
 @pytest.fixture(scope="session")
 def tmpdir_factory(request):
-    """Return a :class:`_pytest.tmpdir.TempdirFactory` instance for the test session.
-    """
+    """Return a :class:`_pytest.tmpdir.TempdirFactory` instance for the test session."""
     return request.config._tmpdirhandler
 
 
 @pytest.fixture(scope="session")
 def tmp_path_factory(request):
-    """Return a :class:`_pytest.tmpdir.TempPathFactory` instance for the test session.
-    """
+    """Return a :class:`_pytest.tmpdir.TempPathFactory` instance for the test session."""
     return request.config._tmp_path_factory
 
 

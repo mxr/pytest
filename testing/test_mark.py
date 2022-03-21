@@ -344,7 +344,7 @@ def test_keyword_option_wrong_arguments(spec, testdir, capsys):
 
 def test_parametrized_collected_from_command_line(testdir):
     """Parametrized test not collected if test named specified
-       in command line issue#649.
+    in command line issue#649.
     """
     py_file = testdir.makepyfile(
         """
@@ -996,7 +996,7 @@ def test_markers_from_parametrize(testdir):
 def test_pytest_param_id_requires_string():
     with pytest.raises(TypeError) as excinfo:
         pytest.param(id=True)
-    msg, = excinfo.value.args
+    (msg,) = excinfo.value.args
     assert msg == "Expected id to be a string, got <class 'bool'>: True"
 
 
@@ -1010,7 +1010,7 @@ def test_pytest_param_warning_on_unknown_kwargs():
         # typo, should be marks=
         pytest.param(1, 2, mark=pytest.mark.xfail())
     assert warninfo[0].filename == __file__
-    msg, = warninfo[0].message.args
+    (msg,) = warninfo[0].message.args
     assert msg == (
         "pytest.param() got unexpected keyword arguments: ['mark'].\n"
         "This will be an error in future versions."

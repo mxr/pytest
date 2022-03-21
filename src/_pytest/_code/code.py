@@ -17,7 +17,7 @@ from _pytest._io.saferepr import saferepr
 
 
 class Code:
-    """ wrapper around Python code objects """
+    """wrapper around Python code objects"""
 
     def __init__(self, rawcode):
         if not hasattr(rawcode, "co_filename"):
@@ -41,8 +41,8 @@ class Code:
 
     @property
     def path(self):
-        """ return a path object pointing to source code (note that it
-        might not point to an actually existing file). """
+        """return a path object pointing to source code (note that it
+        might not point to an actually existing file)."""
         try:
             p = py.path.local(self.raw.co_filename)
             # maybe don't try this checking
@@ -57,26 +57,24 @@ class Code:
 
     @property
     def fullsource(self):
-        """ return a _pytest._code.Source object for the full source file of the code
-        """
+        """return a _pytest._code.Source object for the full source file of the code"""
         from _pytest._code import source
 
         full, _ = source.findsource(self.raw)
         return full
 
     def source(self):
-        """ return a _pytest._code.Source object for the code object's source only
-        """
+        """return a _pytest._code.Source object for the code object's source only"""
         # return source only for that part of code
         import _pytest._code
 
         return _pytest._code.Source(self.raw)
 
     def getargs(self, var=False):
-        """ return a tuple with the argument names for the code object
+        """return a tuple with the argument names for the code object
 
-            if 'var' is set True also return the names of the variable and
-            keyword arguments when present
+        if 'var' is set True also return the names of the variable and
+        keyword arguments when present
         """
         # handfull shortcut for getting args
         raw = self.raw
@@ -100,7 +98,7 @@ class Frame:
 
     @property
     def statement(self):
-        """ statement this frame is at """
+        """statement this frame is at"""
         import _pytest._code
 
         if self.code.fullsource is None:
@@ -108,38 +106,37 @@ class Frame:
         return self.code.fullsource.getstatement(self.lineno)
 
     def eval(self, code, **vars):
-        """ evaluate 'code' in the frame
+        """evaluate 'code' in the frame
 
-            'vars' are optional additional local variables
+        'vars' are optional additional local variables
 
-            returns the result of the evaluation
+        returns the result of the evaluation
         """
         f_locals = self.f_locals.copy()
         f_locals.update(vars)
         return eval(code, self.f_globals, f_locals)
 
     def exec_(self, code, **vars):
-        """ exec 'code' in the frame
+        """exec 'code' in the frame
 
-            'vars' are optiona; additional local variables
+        'vars' are optiona; additional local variables
         """
         f_locals = self.f_locals.copy()
         f_locals.update(vars)
         exec(code, self.f_globals, f_locals)
 
     def repr(self, object):
-        """ return a 'safe' (non-recursive, one-line) string repr for 'object'
-        """
+        """return a 'safe' (non-recursive, one-line) string repr for 'object'"""
         return saferepr(object)
 
     def is_true(self, object):
         return object
 
     def getargs(self, var=False):
-        """ return a list of tuples (name, value) for all arguments
+        """return a list of tuples (name, value) for all arguments
 
-            if 'var' is set True also include the variable and keyword
-            arguments when present
+        if 'var' is set True also include the variable and keyword
+        arguments when present
         """
         retval = []
         for arg in self.code.getargs(var):
@@ -151,7 +148,7 @@ class Frame:
 
 
 class TracebackEntry:
-    """ a single entry in a traceback """
+    """a single entry in a traceback"""
 
     _repr_style = None
     exprinfo = None
@@ -180,25 +177,25 @@ class TracebackEntry:
 
     @property
     def statement(self):
-        """ _pytest._code.Source object for the current statement """
+        """_pytest._code.Source object for the current statement"""
         source = self.frame.code.fullsource
         return source.getstatement(self.lineno)
 
     @property
     def path(self):
-        """ path to the source code """
+        """path to the source code"""
         return self.frame.code.path
 
     @property
     def locals(self):
-        """ locals of underlaying frame """
+        """locals of underlaying frame"""
         return self.frame.f_locals
 
     def getfirstlinesource(self):
         return self.frame.code.firstlineno
 
     def getsource(self, astcache=None):
-        """ return failing source code. """
+        """return failing source code."""
         # we use the passed in astcache to not reparse asttrees
         # within exception info printing
         from _pytest._code.source import getstatementrange_ast
@@ -226,13 +223,13 @@ class TracebackEntry:
     source = property(getsource)
 
     def ishidden(self):
-        """ return True if the current frame has a var __tracebackhide__
-            resolving to True.
+        """return True if the current frame has a var __tracebackhide__
+        resolving to True.
 
-            If __tracebackhide__ is a callable, it gets called with the
-            ExceptionInfo instance and can decide whether to hide the traceback.
+        If __tracebackhide__ is a callable, it gets called with the
+        ExceptionInfo instance and can decide whether to hide the traceback.
 
-            mostly for internal use
+        mostly for internal use
         """
         f = self.frame
         tbh = f.f_locals.get(
@@ -258,19 +255,19 @@ class TracebackEntry:
 
     @property
     def name(self):
-        """ co_name of underlaying code """
+        """co_name of underlaying code"""
         return self.frame.code.raw.co_name
 
 
 class Traceback(list):
-    """ Traceback objects encapsulate and offer higher level
-        access to Traceback entries.
+    """Traceback objects encapsulate and offer higher level
+    access to Traceback entries.
     """
 
     Entry = TracebackEntry
 
     def __init__(self, tb, excinfo=None):
-        """ initialize from given python traceback object and ExceptionInfo """
+        """initialize from given python traceback object and ExceptionInfo"""
         self._excinfo = excinfo
         if hasattr(tb, "tb_next"):
 
@@ -284,14 +281,14 @@ class Traceback(list):
             list.__init__(self, tb)
 
     def cut(self, path=None, lineno=None, firstlineno=None, excludepath=None):
-        """ return a Traceback instance wrapping part of this Traceback
+        """return a Traceback instance wrapping part of this Traceback
 
-            by provding any combination of path, lineno and firstlineno, the
-            first frame to start the to-be-returned traceback is determined
+        by provding any combination of path, lineno and firstlineno, the
+        first frame to start the to-be-returned traceback is determined
 
-            this allows cutting the first part of a Traceback instance e.g.
-            for formatting reasons (removing some uninteresting bits that deal
-            with handling of the exception/traceback)
+        this allows cutting the first part of a Traceback instance e.g.
+        for formatting reasons (removing some uninteresting bits that deal
+        with handling of the exception/traceback)
         """
         for x in self:
             code = x.frame.code
@@ -316,19 +313,19 @@ class Traceback(list):
         return val
 
     def filter(self, fn=lambda x: not x.ishidden()):
-        """ return a Traceback instance with certain items removed
+        """return a Traceback instance with certain items removed
 
-            fn is a function that gets a single argument, a TracebackEntry
-            instance, and should return True when the item should be added
-            to the Traceback, False when not
+        fn is a function that gets a single argument, a TracebackEntry
+        instance, and should return True when the item should be added
+        to the Traceback, False when not
 
-            by default this removes all the TracebackEntries which are hidden
-            (see ishidden() above)
+        by default this removes all the TracebackEntries which are hidden
+        (see ishidden() above)
         """
         return Traceback(filter(fn, self), self._excinfo)
 
     def getcrashentry(self):
-        """ return last non-hidden traceback entry that lead
+        """return last non-hidden traceback entry that lead
         to the exception of a traceback.
         """
         for i in range(-1, -len(self) - 1, -1):
@@ -338,8 +335,8 @@ class Traceback(list):
         return self[-1]
 
     def recursionindex(self):
-        """ return the index of the frame/TracebackEntry where recursion
-            originates if appropriate, None if no recursion occurred
+        """return the index of the frame/TracebackEntry where recursion
+        originates if appropriate, None if no recursion occurred
         """
         cache = {}
         for i, entry in enumerate(self):
@@ -373,8 +370,8 @@ co_equal = compile(
 
 @attr.s(repr=False)
 class ExceptionInfo:
-    """ wraps sys.exc_info() objects and offers
-        help for navigating the traceback.
+    """wraps sys.exc_info() objects and offers
+    help for navigating the traceback.
     """
 
     _assert_start_repr = "AssertionError('assert "
@@ -410,8 +407,7 @@ class ExceptionInfo:
 
     @classmethod
     def for_later(cls):
-        """return an unfilled ExceptionInfo
-        """
+        """return an unfilled ExceptionInfo"""
         return cls(None)
 
     @property
@@ -451,12 +447,12 @@ class ExceptionInfo:
         return "<ExceptionInfo %s tblen=%d>" % (self.typename, len(self.traceback))
 
     def exconly(self, tryshort=False):
-        """ return the exception as a string
+        """return the exception as a string
 
-            when 'tryshort' resolves to True, and the exception is a
-            _pytest._code._AssertionError, only the actual exception part of
-            the exception representation is returned (so 'AssertionError: ' is
-            removed from the beginning)
+        when 'tryshort' resolves to True, and the exception is a
+        _pytest._code._AssertionError, only the actual exception part of
+        the exception representation is returned (so 'AssertionError: ' is
+        removed from the beginning)
         """
         lines = format_exception_only(self.type, self.value)
         text = "".join(lines)
@@ -467,7 +463,7 @@ class ExceptionInfo:
         return text
 
     def errisinstance(self, exc):
-        """ return True if the exception is an instance of exc """
+        """return True if the exception is an instance of exc"""
         return isinstance(self.value, exc)
 
     def _getreprcrash(self):
@@ -551,7 +547,7 @@ class ExceptionInfo:
 
 @attr.s
 class FormattedExcinfo:
-    """ presenting information about failing Functions and Generators. """
+    """presenting information about failing Functions and Generators."""
 
     # for traceback entries
     flow_marker = ">"
@@ -595,7 +591,7 @@ class FormattedExcinfo:
             return ReprFuncArgs(args)
 
     def get_source(self, source, line_index=-1, excinfo=None, short=False):
-        """ return formatted and marked up source lines. """
+        """return formatted and marked up source lines."""
         import _pytest._code
 
         lines = []
@@ -981,7 +977,7 @@ class ReprFuncArgs(TerminalRepr):
 
 
 def getrawcode(obj, trycall=True):
-    """ return code object for given function. """
+    """return code object for given function."""
     try:
         return obj.__code__
     except AttributeError:

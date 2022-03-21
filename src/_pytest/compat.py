@@ -60,7 +60,7 @@ def getlocation(function, curdir):
 
 
 def num_mock_patch_args(function):
-    """ return number of arguments used up by mock arguments (if any) """
+    """return number of arguments used up by mock arguments (if any)"""
     patchings = getattr(function, "patchings", None)
     if not patchings:
         return 0
@@ -131,7 +131,6 @@ if sys.version_info < (3, 7):
     @contextmanager
     def nullcontext():
         yield
-
 
 else:
     from contextlib import nullcontext  # noqa
@@ -205,7 +204,7 @@ class _PytestWrapper:
 
 
 def get_real_func(obj):
-    """ gets the real function object of the (possibly) wrapped object by
+    """gets the real function object of the (possibly) wrapped object by
     functools.wraps or functools.partial.
     """
     start_obj = obj
@@ -265,7 +264,7 @@ def getimfunc(func):
 
 
 def safe_getattr(object, name, default):
-    """ Like getattr but return default upon any Exception or any OutcomeException.
+    """Like getattr but return default upon any Exception or any OutcomeException.
 
     Attribute access can potentially fail for 'evil' Python objects.
     See issue #214.
@@ -318,13 +317,13 @@ class CaptureIO(io.TextIOWrapper):
 
 
 class FuncargnamesCompatAttr:
-    """ helper class so that Metafunc, Function and FixtureRequest
+    """helper class so that Metafunc, Function and FixtureRequest
     don't need to each define the "funcargnames" compatibility attribute.
     """
 
     @property
     def funcargnames(self):
-        """ alias attribute for ``fixturenames`` for pre-2.3 compatibility"""
+        """alias attribute for ``fixturenames`` for pre-2.3 compatibility"""
         import warnings
         from _pytest.deprecated import FUNCARGNAMES
 

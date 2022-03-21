@@ -276,7 +276,7 @@ def _write_pyc(state, co, source_stat, pyc):
             # "<LL" stands for 2 unsigned longs, little-ending
             fp.write(struct.pack("<LL", mtime, size))
             fp.write(marshal.dumps(co))
-    except EnvironmentError as e:
+    except OSError as e:
         state.trace("error writing pyc file at {}: errno={}".format(pyc, e.errno))
         # we ignore any failure to write the cache file
         # there are many reasons, permission-denied, __pycache__ being a
@@ -303,7 +303,7 @@ def _read_pyc(source, pyc, trace=lambda x: None):
     """
     try:
         fp = open(pyc, "rb")
-    except IOError:
+    except OSError:
         return None
     with fp:
         try:
@@ -311,7 +311,7 @@ def _read_pyc(source, pyc, trace=lambda x: None):
             mtime = int(stat_result.st_mtime)
             size = stat_result.st_size
             data = fp.read(12)
-        except EnvironmentError as e:
+        except OSError as e:
             trace("_read_pyc({}): EnvironmentError {}".format(source, e))
             return None
         # Check for invalid or out of date pyc file.
