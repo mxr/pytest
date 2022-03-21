@@ -1115,8 +1115,7 @@ def test_fixture_values_leak(testdir):
 
 
 def test_fixture_order_respects_scope(testdir):
-    """Ensure that fixtures are created according to scope order, regression test for #2405
-    """
+    """Ensure that fixtures are created according to scope order, regression test for #2405"""
     testdir.makepyfile(
         """
         import pytest

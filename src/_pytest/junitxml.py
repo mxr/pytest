@@ -102,8 +102,7 @@ class _NodeReporter:
         self.attrs[str(name)] = bin_xml_escape(value)
 
     def make_properties_node(self):
-        """Return a Junit node containing custom properties, if any.
-        """
+        """Return a Junit node containing custom properties, if any."""
         if self.properties:
             return Junit.properties(
                 [
@@ -680,8 +679,7 @@ class LogXML:
         self.global_properties.append((name, bin_xml_escape(value)))
 
     def _get_global_properties_node(self):
-        """Return a Junit node containing custom properties, if any.
-        """
+        """Return a Junit node containing custom properties, if any."""
         if self.global_properties:
             return Junit.properties(
                 [

@@ -392,8 +392,8 @@ class CaptureFixture:
 
 
 def safe_text_dupfile(f, mode, default_encoding="UTF8"):
-    """ return an open text file object that's a duplicate of f on the
-        FD-level if possible.
+    """return an open text file object that's a duplicate of f on the
+    FD-level if possible.
     """
     encoding = getattr(f, "encoding", None)
     try:
@@ -477,7 +477,7 @@ class MultiCapture:
             self.err.start()
 
     def pop_outerr_to_orig(self):
-        """ pop current snapshot out/err capture and flush to orig streams. """
+        """pop current snapshot out/err capture and flush to orig streams."""
         out, err = self.readouterr()
         if out:
             self.out.writeorg(out)
@@ -506,7 +506,7 @@ class MultiCapture:
             del self._in_suspended
 
     def stop_capturing(self):
-        """ stop capturing and reset capturing streams """
+        """stop capturing and reset capturing streams"""
         if self._state == "stopped":
             raise ValueError("was already stopped")
         self._state = "stopped"
@@ -518,7 +518,7 @@ class MultiCapture:
             self.in_.done()
 
     def readouterr(self):
-        """ return snapshot unicode value of stdout/stderr capturings. """
+        """return snapshot unicode value of stdout/stderr capturings."""
         return CaptureResult(
             self.out.snap() if self.out is not None else "",
             self.err.snap() if self.err is not None else "",
@@ -551,7 +551,7 @@ class FDCaptureBinary:
             self.done = self._done
             if targetfd == 0:
                 assert not tmpfile, "cannot set tmpfile with stdin"
-                tmpfile = open(os.devnull, "r")
+                tmpfile = open(os.devnull)
                 self.syscapture = SysCapture(targetfd)
             else:
                 if tmpfile is None:
@@ -571,7 +571,7 @@ class FDCaptureBinary:
         )
 
     def _start(self):
-        """ Start capturing on targetfd using memorized tmpfile. """
+        """Start capturing on targetfd using memorized tmpfile."""
         try:
             os.fstat(self.targetfd_save)
         except (AttributeError, OSError):
@@ -588,8 +588,8 @@ class FDCaptureBinary:
         return res
 
     def _done(self):
-        """ stop capturing, restore streams, return original capture file,
-        seeked to position zero. """
+        """stop capturing, restore streams, return original capture file,
+        seeked to position zero."""
         targetfd_save = self.__dict__.pop("targetfd_save")
         os.dup2(targetfd_save, self.targetfd)
         os.close(targetfd_save)
@@ -608,7 +608,7 @@ class FDCaptureBinary:
         self._state = "resumed"
 
     def writeorg(self, data):
-        """ write to original file descriptor. """
+        """write to original file descriptor."""
         if isinstance(data, str):
             data = data.encode("utf8")  # XXX use encoding of original stream
         os.write(self.targetfd_save, data)
@@ -621,7 +621,7 @@ class FDCapture(FDCaptureBinary):
     """
 
     # Ignore type because it doesn't match the type in the superclass (bytes).
-    EMPTY_BUFFER = str()  # type: ignore
+    EMPTY_BUFFER = ''  # type: ignore
 
     def snap(self):
         res = super().snap()
@@ -633,7 +633,7 @@ class FDCapture(FDCaptureBinary):
 
 class SysCapture:
 
-    EMPTY_BUFFER = str()
+    EMPTY_BUFFER = ''
     _state = None
 
     def __init__(self, fd, tmpfile=None):
@@ -703,7 +703,7 @@ class DontReadFromInput:
     encoding = None
 
     def read(self, *args):
-        raise IOError("reading from stdin while output is captured")
+        raise OSError("reading from stdin while output is captured")
 
     readline = read
     readlines = read

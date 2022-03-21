@@ -8,8 +8,8 @@ from packaging.version import Version
 
 
 class OutcomeException(BaseException):
-    """ OutcomeException and its subclass instances indicate and
-        contain info about test and collection outcomes.
+    """OutcomeException and its subclass instances indicate and
+    contain info about test and collection outcomes.
     """
 
     def __init__(self, msg=None, pytrace=True):
@@ -45,13 +45,13 @@ class Skipped(OutcomeException):
 
 
 class Failed(OutcomeException):
-    """ raised from an explicit call to pytest.fail() """
+    """raised from an explicit call to pytest.fail()"""
 
     __module__ = "builtins"
 
 
 class Exit(Exception):
-    """ raised for immediate program exits (no tracebacks/summaries)"""
+    """raised for immediate program exits (no tracebacks/summaries)"""
 
     def __init__(self, msg="unknown reason", returncode=None):
         self.msg = msg
@@ -121,7 +121,7 @@ fail.Exception = Failed  # type: ignore
 
 
 class XFailed(Failed):
-    """ raised from an explicit call to pytest.xfail() """
+    """raised from an explicit call to pytest.xfail()"""
 
 
 def xfail(reason=""):

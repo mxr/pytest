@@ -12,7 +12,7 @@ from _pytest.config import UsageError
 @attr.s
 class MarkMapping:
     """Provides a local mapping for markers where item access
-    resolves to True if the marker is present. """
+    resolves to True if the marker is present."""
 
     own_mark_names = attr.ib()
 

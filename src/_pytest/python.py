@@ -263,7 +263,7 @@ class PyobjMixin(PyobjContext):
         return getattr(self.parent.obj, self.name)
 
     def getmodpath(self, stopatmodule=True, includemodule=False):
-        """ return python path relative to the containing module. """
+        """return python path relative to the containing module."""
         chain = self.listchain()
         chain.reverse()
         parts = []
@@ -304,7 +304,7 @@ class PyCollector(PyobjMixin, nodes.Collector):
         return self._matches_prefix_or_glob_option("python_functions", name)
 
     def isnosetest(self, obj):
-        """ Look for the __test__ attribute, which is applied by the
+        """Look for the __test__ attribute, which is applied by the
         @nose.tools.istest decorator
         """
         # We explicitly check for "is True" here to not mistakenly treat
@@ -425,7 +425,7 @@ class PyCollector(PyobjMixin, nodes.Collector):
 
 
 class Module(nodes.File, PyCollector):
-    """ Collector for test classes and functions. """
+    """Collector for test classes and functions."""
 
     def _getobj(self):
         return self._importtestmodule()
@@ -699,7 +699,7 @@ def _get_non_fixture_func(obj, name):
 
 
 class Class(PyCollector):
-    """ Collector for test methods. """
+    """Collector for test methods."""
 
     def collect(self):
         if not safe_getattr(self.obj, "__test__", True):
@@ -797,11 +797,10 @@ class Instance(PyCollector):
 
 
 class FunctionMixin(PyobjMixin):
-    """ mixin for the code common to Function and Generator.
-    """
+    """mixin for the code common to Function and Generator."""
 
     def setup(self):
-        """ perform setup for this test function. """
+        """perform setup for this test function."""
         if isinstance(self.parent, Instance):
             self.parent.newinstance()
             self.obj = self._getobj()
@@ -945,7 +944,7 @@ class Metafunc(fixtures.FuncargnamesCompatAttr):
         self._arg2fixturedefs = fixtureinfo.name2fixturedefs
 
     def parametrize(self, argnames, argvalues, indirect=False, ids=None, scope=None):
-        """ Add new invocations to the underlying test function using the list
+        """Add new invocations to the underlying test function using the list
         of argvalues for the given argnames.  Parametrization is performed
         during the collection phase.  If you need to setup expensive resources
         see about setting indirect to do it rather at test setup time.
@@ -1357,7 +1356,7 @@ def write_docstring(tw, doc, indent="    "):
 
 
 class Function(FunctionMixin, nodes.Item, fixtures.FuncargnamesCompatAttr):
-    """ a Function Item is responsible for setting up and executing a
+    """a Function Item is responsible for setting up and executing a
     Python test function.
     """
 
@@ -1447,7 +1446,7 @@ class Function(FunctionMixin, nodes.Item, fixtures.FuncargnamesCompatAttr):
         return self
 
     def runtest(self):
-        """ execute the underlying test function. """
+        """execute the underlying test function."""
         self.ihook.pytest_pyfunc_call(pyfuncitem=self)
 
     def setup(self):

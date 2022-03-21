@@ -1,5 +1,5 @@
 def test_show_fixtures_and_test(testdir):
-    """ Verifies that fixtures are not executed. """
+    """Verifies that fixtures are not executed."""
     p = testdir.makepyfile(
         """
         import pytest

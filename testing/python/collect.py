@@ -939,8 +939,7 @@ class TestTracebackCutting:
         result.stdout.fnmatch_lines([">*asd*", "E*NameError*"])
 
     def test_traceback_filter_error_during_fixture_collection(self, testdir):
-        """integration test for issue #995.
-        """
+        """integration test for issue #995."""
         testdir.makepyfile(
             """
             import pytest
@@ -1249,8 +1248,7 @@ def test_class_injection_does_not_break_collection(testdir):
 
 
 def test_syntax_error_with_non_ascii_chars(testdir):
-    """Fix decoding issue while formatting SyntaxErrors during collection (#578)
-    """
+    """Fix decoding issue while formatting SyntaxErrors during collection (#578)"""
     testdir.makepyfile("☃")
     result = testdir.runpytest()
     result.stdout.fnmatch_lines(["*ERROR collecting*", "*SyntaxError*", "*1 error in*"])

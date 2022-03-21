@@ -195,7 +195,7 @@ def call_runtest_hook(item, when, **kwds):
 
 @attr.s(repr=False)
 class CallInfo:
-    """ Result/Exception info a function invocation. """
+    """Result/Exception info a function invocation."""
 
     _result = attr.ib()
     # Optional[ExceptionInfo]
@@ -270,14 +270,14 @@ def pytest_make_collect_report(collector):
 
 
 class SetupState:
-    """ shared state for setting up/tearing down test items or collectors. """
+    """shared state for setting up/tearing down test items or collectors."""
 
     def __init__(self):
         self.stack = []
         self._finalizers = {}
 
     def addfinalizer(self, finalizer, colitem):
-        """ attach a finalizer to the given colitem.
+        """attach a finalizer to the given colitem.
         if colitem is None, this will add a finalizer that
         is called at the end of teardown_all().
         """
@@ -343,8 +343,8 @@ class SetupState:
             raise val.with_traceback(tb)
 
     def prepare(self, colitem):
-        """ setup objects along the collector chain to the test-method
-            and teardown previously setup objects."""
+        """setup objects along the collector chain to the test-method
+        and teardown previously setup objects."""
         needed_collectors = colitem.listchain()
         self._teardown_towards(needed_collectors)
 

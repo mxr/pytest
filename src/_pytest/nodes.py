@@ -50,7 +50,7 @@ def ischildnode(baseid, nodeid):
 
 
 class Node:
-    """ base class for Collector and Item the test collection tree.
+    """base class for Collector and Item the test collection tree.
     Collector subclasses have children, Items are terminal nodes."""
 
     def __init__(
@@ -93,7 +93,7 @@ class Node:
 
     @property
     def ihook(self):
-        """ fspath sensitive hook proxy used to call pytest hooks"""
+        """fspath sensitive hook proxy used to call pytest hooks"""
         return self.session.gethookproxy(self.fspath)
 
     def __repr__(self):
@@ -134,7 +134,7 @@ class Node:
     # methods for ordering nodes
     @property
     def nodeid(self):
-        """ a ::-separated string denoting its collection tree address. """
+        """a ::-separated string denoting its collection tree address."""
         return self._nodeid
 
     def __hash__(self):
@@ -147,8 +147,8 @@ class Node:
         pass
 
     def listchain(self):
-        """ return list of all parent collectors up to self,
-            starting from root of collection tree. """
+        """return list of all parent collectors up to self,
+        starting from root of collection tree."""
         chain = []
         item = self
         while item is not None:
@@ -207,7 +207,7 @@ class Node:
         return next(self.iter_markers(name=name), default)
 
     def listextrakeywords(self):
-        """ Return a set of all extra keywords in self and any parents."""
+        """Return a set of all extra keywords in self and any parents."""
         extra_keywords = set()
         for item in self.listchain():
             extra_keywords.update(item.extra_keyword_matches)
@@ -217,7 +217,7 @@ class Node:
         return [x.name for x in self.listchain()]
 
     def addfinalizer(self, fin):
-        """ register a function to be called when this node is finalized.
+        """register a function to be called when this node is finalized.
 
         This method can only be called when this node is active
         in a setup chain, for example during self.setup().
@@ -225,7 +225,7 @@ class Node:
         self.session._setupstate.addfinalizer(fin, self)
 
     def getparent(self, cls):
-        """ get the next parent node (including ourself)
+        """get the next parent node (including ourself)
         which is an instance of the given class"""
         current = self
         while current and not isinstance(current, cls):
@@ -303,21 +303,21 @@ def get_fslocation_from_item(item):
 
 
 class Collector(Node):
-    """ Collector instances create children through collect()
-        and thus iteratively build a tree.
+    """Collector instances create children through collect()
+    and thus iteratively build a tree.
     """
 
     class CollectError(Exception):
-        """ an error during collection, contains a custom message. """
+        """an error during collection, contains a custom message."""
 
     def collect(self):
-        """ returns a list of children (items and collectors)
-            for this collection node.
+        """returns a list of children (items and collectors)
+        for this collection node.
         """
         raise NotImplementedError("abstract")
 
     def repr_failure(self, excinfo):
-        """ represent a collection failure. """
+        """represent a collection failure."""
         if excinfo.errisinstance(self.CollectError):
             exc = excinfo.value
             return str(exc.args[0])
@@ -370,11 +370,11 @@ class FSCollector(Collector):
 
 
 class File(FSCollector):
-    """ base class for collecting tests from a file. """
+    """base class for collecting tests from a file."""
 
 
 class Item(Node):
-    """ a basic test invocation item. Note that for a single function
+    """a basic test invocation item. Note that for a single function
     there might be multiple test invocation items.
     """
 

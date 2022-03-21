@@ -28,7 +28,7 @@ class YamlItem(pytest.Item):
                 raise YamlException(self, name, value)
 
     def repr_failure(self, excinfo):
-        """ called when self.runtest() raises an exception. """
+        """called when self.runtest() raises an exception."""
         if isinstance(excinfo.value, YamlException):
             return "\n".join(
                 [
@@ -43,4 +43,4 @@ class YamlItem(pytest.Item):
 
 
 class YamlException(Exception):
-    """ custom exception for error reporting. """
+    """custom exception for error reporting."""

@@ -70,7 +70,7 @@ def pytest_configure(config):
 
 
 class pytestPDB:
-    """ Pseudo PDB that defers to the real pdb. """
+    """Pseudo PDB that defers to the real pdb."""
 
     _pluginmanager = None
     _config = None
@@ -203,7 +203,7 @@ class pytestPDB:
 
     @classmethod
     def _init_pdb(cls, method, *args, **kwargs):
-        """ Initialize PDB debugging, dropping any IO capturing. """
+        """Initialize PDB debugging, dropping any IO capturing."""
         import _pytest.config
 
         if cls._pluginmanager is not None:

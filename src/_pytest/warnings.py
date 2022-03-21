@@ -16,7 +16,7 @@ def _setoption(wmod, arg):
         raise wmod._OptionError("too many fields (max 5): {!r}".format(arg))
     while len(parts) < 5:
         parts.append("")
-    action, message, category, module, lineno = [s.strip() for s in parts]
+    action, message, category, module, lineno = (s.strip() for s in parts)
     action = wmod._getaction(action)
     category = wmod._getcategory(category)
     if lineno:

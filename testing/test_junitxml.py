@@ -1032,8 +1032,7 @@ def test_record_attribute(testdir):
 @pytest.mark.filterwarnings("default")
 @pytest.mark.parametrize("fixture_name", ["record_xml_attribute", "record_property"])
 def test_record_fixtures_xunit2(testdir, fixture_name):
-    """Ensure record_xml_attribute and record_property drop values when outside of legacy family
-    """
+    """Ensure record_xml_attribute and record_property drop values when outside of legacy family"""
     testdir.makeini(
         """
         [pytest]
@@ -1104,7 +1103,7 @@ def test_runs_twice(testdir):
 
     result, dom = runandparse(testdir, f, f)
     assert "INTERNALERROR" not in result.stdout.str()
-    first, second = [x["classname"] for x in dom.find_by_tag("testcase")]
+    first, second = (x["classname"] for x in dom.find_by_tag("testcase"))
     assert first == second
 
 
@@ -1120,7 +1119,7 @@ def test_runs_twice_xdist(testdir):
 
     result, dom = runandparse(testdir, f, "--dist", "each", "--tx", "2*popen")
     assert "INTERNALERROR" not in result.stdout.str()
-    first, second = [x["classname"] for x in dom.find_by_tag("testcase")]
+    first, second = (x["classname"] for x in dom.find_by_tag("testcase"))
     assert first == second
 
 

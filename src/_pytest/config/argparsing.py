@@ -11,7 +11,7 @@ FILE_OR_DIR = "file_or_dir"
 
 
 class Parser:
-    """ Parser for command line arguments and ini-file values.
+    """Parser for command line arguments and ini-file values.
 
     :ivar extra_info: dict of generic param -> value to display in case
         there's an error processing the command line arguments.
@@ -34,7 +34,7 @@ class Parser:
                 self._processopt(option)
 
     def getgroup(self, name, description="", after=None):
-        """ get (or create) a named option Group.
+        """get (or create) a named option Group.
 
         :name: name of the option group.
         :description: long description for --help output.
@@ -57,7 +57,7 @@ class Parser:
         return group
 
     def addoption(self, *opts, **attrs):
-        """ register a command line option.
+        """register a command line option.
 
         :opts: option names, can be short or long options.
         :attrs: same attributes which the ``add_option()`` function of the
@@ -118,7 +118,7 @@ class Parser:
         return optparser.parse_known_args(args, namespace=namespace)
 
     def addini(self, name, help, type=None, default=None):
-        """ register an ini-file option.
+        """register an ini-file option.
 
         :name: name of the ini-variable
         :type: type of the variable, can be ``pathlist``, ``args``, ``linelist``
@@ -290,7 +290,7 @@ class OptionGroup:
         self.parser = parser
 
     def addoption(self, *optnames, **attrs):
-        """ add an option to this group.
+        """add an option to this group.
 
         if a shortened version of a long option is specified it will
         be suppressed in the help. addoption('--twowords', '--two-words')
@@ -385,7 +385,7 @@ class MyOptionParser(argparse.ArgumentParser):
                     options = ", ".join(option for _, option, _ in option_tuples)
                     self.error(msg % {"option": arg_string, "matches": options})
                 elif len(option_tuples) == 1:
-                    option_tuple, = option_tuples
+                    (option_tuple,) = option_tuples
                     return option_tuple
             if self._negative_number_matcher.match(arg_string):
                 if not self._has_negative_number_optionals:

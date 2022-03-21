@@ -1,8 +1,8 @@
 import argparse
-import distutils.spawn
 import os
 import sys
 
+import distutils.spawn
 import py
 
 import pytest

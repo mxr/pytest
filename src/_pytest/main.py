@@ -251,8 +251,8 @@ def pytest_cmdline_main(config):
 
 
 def _main(config, session):
-    """ default command line protocol for initialization, session,
-    running tests and reporting. """
+    """default command line protocol for initialization, session,
+    running tests and reporting."""
     config.hook.pytest_collection(session=session)
     config.hook.pytest_runtestloop(session=session)
 
@@ -359,17 +359,17 @@ class FSHookProxy:
 
 
 class NoMatch(Exception):
-    """ raised if matching cannot locate a matching names. """
+    """raised if matching cannot locate a matching names."""
 
 
 class Interrupted(KeyboardInterrupt):
-    """ signals an interrupted test run. """
+    """signals an interrupted test run."""
 
     __module__ = "builtins"  # for py3
 
 
 class Failed(Exception):
-    """ signals a stop as failed test run. """
+    """signals a stop as failed test run."""
 
 
 @attr.s
@@ -644,7 +644,7 @@ class Session(nodes.FSCollector):
             return spec.origin
 
     def _parsearg(self, arg):
-        """ return (fspath, names) tuple after checking the file exists. """
+        """return (fspath, names) tuple after checking the file exists."""
         parts = str(arg).split("::")
         if self.config.option.pyargs:
             parts[0] = self._tryconvertpyarg(parts[0])

@@ -178,7 +178,7 @@ class Mark:
 
 @attr.s
 class MarkDecorator:
-    """ A decorator for test functions and test classes.  When applied
+    """A decorator for test functions and test classes.  When applied
     it will create :class:`MarkInfo` objects which may be
     :ref:`retrieved by hooks as item keywords <excontrolskip>`.
     MarkDecorator instances are often created like this::
@@ -228,7 +228,7 @@ class MarkDecorator:
         return "<MarkDecorator {!r}>".format(self.mark)
 
     def with_args(self, *args, **kwargs):
-        """ return a MarkDecorator with extra arguments added
+        """return a MarkDecorator with extra arguments added
 
         unlike call this can be used even if the sole argument is a callable/class
 
@@ -239,8 +239,8 @@ class MarkDecorator:
         return self.__class__(self.mark.combined_with(mark))
 
     def __call__(self, *args, **kwargs):
-        """ if passed a single callable argument: decorate it with mark info.
-            otherwise add *args/**kwargs in-place to mark information. """
+        """if passed a single callable argument: decorate it with mark info.
+        otherwise add *args/**kwargs in-place to mark information."""
         if args and not kwargs:
             func = args[0]
             is_class = inspect.isclass(func)
@@ -287,7 +287,7 @@ def store_mark(obj, mark):
 
 
 class MarkGenerator:
-    """ Factory for :class:`MarkDecorator` objects - exposed as
+    """Factory for :class:`MarkDecorator` objects - exposed as
     a ``pytest.mark`` singleton instance.  Example::
 
          import pytest
@@ -296,7 +296,7 @@ class MarkGenerator:
             pass
 
     will set a 'slowtest' :class:`MarkInfo` object
-    on the ``test_function`` object. """
+    on the ``test_function`` object."""
 
     _config = None
     _markers = set()  # type: Set[str]
@@ -390,8 +390,7 @@ class NodeMarkers:
     own_markers = attr.ib(default=attr.Factory(list))
 
     def update(self, add_markers):
-        """update the own markers
-        """
+        """update the own markers"""
         self.own_markers.extend(add_markers)
 
     def find(self, name):

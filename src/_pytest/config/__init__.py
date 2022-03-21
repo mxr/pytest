@@ -41,7 +41,7 @@ class ConftestImportFailure(Exception):
 
 
 def main(args=None, plugins=None):
-    """ return exit code, after performing an in-process test run.
+    """return exit code, after performing an in-process test run.
 
     :arg args: list of command line arguments.
 
@@ -86,7 +86,7 @@ class cmdline:  # compatibility namespace
 
 
 def filename_arg(path, optname):
-    """ Argparse type validator for filename arguments.
+    """Argparse type validator for filename arguments.
 
     :path: path of filename
     :optname: name of the option
@@ -336,12 +336,12 @@ class PytestPluginManager(PluginManager):
     # internal API for local conftest plugin handling
     #
     def _set_initial_conftests(self, namespace):
-        """ load initial conftest files given a preparsed "namespace".
-            As conftest files may add their own command line options
-            which have arguments ('--my-opt somepath') we might get some
-            false positives.  All builtin and 3rd party plugins will have
-            been loaded, however, so common options will not confuse our logic
-            here.
+        """load initial conftest files given a preparsed "namespace".
+        As conftest files may add their own command line options
+        which have arguments ('--my-opt somepath') we might get some
+        false positives.  All builtin and 3rd party plugins will have
+        been loaded, however, so common options will not confuse our logic
+        here.
         """
         current = py.path.local()
         self._confcutdir = (
@@ -608,7 +608,7 @@ def _iter_rewritable_modules(package_files):
 
 
 class Config:
-    """ access to configuration values, pluginmanager and plugin hooks.  """
+    """access to configuration values, pluginmanager and plugin hooks."""
 
     def __init__(self, pluginmanager):
         #: access to command line option as attributes.
@@ -635,7 +635,7 @@ class Config:
         self.hook.pytest_addoption.call_historic(kwargs=dict(parser=self._parser))
 
     def add_cleanup(self, func):
-        """ Add a function to be called when the config object gets out of
+        """Add a function to be called when the config object gets out of
         use (usually coninciding with pytest_unconfigure)."""
         self._cleanup.append(func)
 
@@ -703,7 +703,7 @@ class Config:
 
     @classmethod
     def fromdictargs(cls, option_dict, args):
-        """ constructor useable for subprocesses. """
+        """constructor useable for subprocesses."""
         config = get_config(args)
         config.option.__dict__.update(option_dict)
         config.parse(args, addopts=False)
@@ -884,18 +884,18 @@ class Config:
             pass
 
     def addinivalue_line(self, name, line):
-        """ add a line to an ini-file option. The option must have been
+        """add a line to an ini-file option. The option must have been
         declared but might not yet be set in which case the line becomes the
-        the first line in its value. """
+        the first line in its value."""
         x = self.getini(name)
         assert isinstance(x, list)
         x.append(line)  # modifies the cached list inline
 
     def getini(self, name):
-        """ return configuration value from an :ref:`ini file <inifiles>`. If the
+        """return configuration value from an :ref:`ini file <inifiles>`. If the
         specified name hasn't been registered through a prior
         :py:func:`parser.addini <_pytest.config.Parser.addini>`
-        call (usually from a plugin), a ValueError is raised. """
+        call (usually from a plugin), a ValueError is raised."""
         try:
             return self._inicache[name]
         except KeyError:
@@ -963,7 +963,7 @@ class Config:
         return value
 
     def getoption(self, name, default=notset, skip=False):
-        """ return command line option value.
+        """return command line option value.
 
         :arg name: name of the option.  You may also specify
             the literal ``--OPT`` option instead of the "dest" option name.
@@ -987,11 +987,11 @@ class Config:
             raise ValueError("no option named {!r}".format(name))
 
     def getvalue(self, name, path=None):
-        """ (deprecated, use getoption()) """
+        """(deprecated, use getoption())"""
         return self.getoption(name)
 
     def getvalueorskip(self, name, path=None):
-        """ (deprecated, use getoption(skip=True)) """
+        """(deprecated, use getoption(skip=True))"""
         return self.getoption(name, skip=True)
 
 
